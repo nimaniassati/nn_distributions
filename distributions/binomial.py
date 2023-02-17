@@ -1,6 +1,6 @@
 import math
 import matplotlib.pyplot as plt
-from general import Distribution
+from .general import Distribution
 
 class Binomial(Distribution):
     """ Binomial distribution class for calculating and 

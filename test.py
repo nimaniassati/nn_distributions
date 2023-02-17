@@ -6,8 +6,9 @@
 
 import unittest
 
-# from distributions import Gaussian
+from distributions import Gaussian
 from distributions import Binomial
+from distributions import Poisson
 
 # class TestGaussianClass(unittest.TestCase):
 #     def setUp(self):
@@ -87,6 +88,46 @@ class TestBinomialClass(unittest.TestCase):
         
         self.assertEqual(binomial_sum.p, .4)
         self.assertEqual(binomial_sum.n, 80)
+
+
+class TestPoissonClass(unittest.TestCase):
+    def setUp(self):
+        self.poisson = Poisson(0.4)
+        self.poisson.read_data_file('numbers_poisson.txt')
+
+    def test_initialization(self):
+        self.assertEqual(self.poisson.mu, 0.4, 'mu value incorrect')
+
+    def test_readdata(self):
+        self.assertEqual(self.poisson.data,\
+         [0, 2, 3, 2, 4, 2, 2, 1, 2, 1, 0, 5, 0], 'data not read in correctly')
+    
+    def test_calculatemean(self):
+        mean = self.poisson.calculate_mean()
+        self.assertEqual(mean, 0.4, 'mean calc wrong')
+    
+    def test_calculatestdev(self):
+        stdev = self.poisson.calculate_stdev()
+        self.assertEqual(round(stdev, 3), .632, 0.4)
+        
+    def test_replace_stats_with_data(self):
+        mu = self.poisson.replace_stats_with_data()
+        self.assertEqual(round(mu,3), 1.846, "Mu value doesn't match")
+        
+    def test_pdf(self):
+        self.assertEqual(round(self.poisson.pdf(2), 5), 0.05363, "Doesn't match")
+        self.assertEqual(round(self.poisson.pdf(3), 5), 0.00715, "Doesn't match")
+    
+        self.poisson.replace_stats_with_data()
+        self.assertEqual(round(self.poisson.pdf(5), 5), 0.02821)
+        self.assertEqual(round(self.poisson.pdf(3), 5), 0.16553)
+
+    def test_add(self):
+        poisson_one = Poisson(.4)
+        poisson_two = Poisson(.3)
+        poisson_sum = poisson_one + poisson_two
+        
+        self.assertEqual(poisson_sum.mu, .7)
         
     
 if __name__ == '__main__':
