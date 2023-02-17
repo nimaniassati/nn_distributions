@@ -105,7 +105,8 @@ class Binomial(Distribution):
         plt.hist(self.data)
         plt.title('Histogram of Data')
         plt.xlabel('data')
-        plt.ylabel('count')        
+        plt.ylabel('count')     
+        plt.show()   
         
     def pdf(self, k):
         """Probability density function calculator for the gaussian distribution.
@@ -138,9 +139,10 @@ class Binomial(Distribution):
             
         """
     
-        x,=[], []
+        x = []
+        y = []
  
-        for i in range(k):
+        for i in range(self.n):
             x.append(i+1)
             y.append(self.pdf(i+1))
             
@@ -152,7 +154,7 @@ class Binomial(Distribution):
         axes[0].set_ylabel('Density')
 
         axes[1].plot(x, y)
-        axes[1].set_title('Normal Distribution for \n Sample Mean and Sample Standard Deviation')
+        axes[1].set_title('Binomial Distribution for \n Sample Probability and Sample Frequency')
         axes[0].set_ylabel('Density')
         plt.show()
                           

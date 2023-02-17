@@ -81,6 +81,7 @@ class Poisson(Distribution):
         plt.title('Histogram of Data')
         plt.xlabel('data')
         plt.ylabel('count')
+        plt.show()
 
     def pdf(self, k):
         """
@@ -95,7 +96,7 @@ class Poisson(Distribution):
         mu = self.mu
         return (math.pow(mu, k))*(math.exp(-mu))/(math.factorial(k))
 
-    def plot_histogram_pdf(self, n_spaces=50):
+    def plot_histogram_pdf(self, n_spaces=10):
         """
         Method to plot the normalized histogram of the data and a plot of the probability density function along the same range.
 
@@ -106,20 +107,15 @@ class Poisson(Distribution):
         list: x values for the pdf plot
         list: y values for the pdf plot
         """
-        mu = self.mu
-        stdev = self.stdev
-        min_range = min(mu - 10*stdev)
-        max_range = max(mu + 10*stdev)
-        
-        # calculates the interval between x values
-        interval = 1.0 * (max_range - min_range) / n_spaces
-
+        # mu = self.mu
+        # min_range = round(min(mu - n_spaces/2),0)
         x = []
         y = []
+        tmp = 0
         
         # calculate the x values to visualize
         for i in range(n_spaces):
-            tmp = min_range + interval*i
+            tmp += i
             x.append(tmp)
             y.append(self.pdf(tmp))
 
