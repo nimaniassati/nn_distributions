@@ -1,7 +1,7 @@
 from setuptools import setup
 
-setup(name='distributions',
-      version='0.1',
-      description='Gaussian distributions',
+setup(name='nn_distributions',
+      version='1.0',
+      description='Commonly used probability distributions',
       packages=['distributions'],
       zip_safe=False)
